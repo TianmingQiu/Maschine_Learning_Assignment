@@ -29,6 +29,7 @@ for d = 1:15
         digit{i, 1} = find(labels == (i - 1));
         %digit{i, 2} = zeros(784, size(digit{i, 1}, 1));
         digit{i, 2} = images_ld(:, digit{i, 1});
+        % labels == (i - 1) can be directe written above
         digit{i, 3} = mean(digit{i, 2}, 2);
         % pad_mean = padarray(mean(digit{i, 2}, 2), [0, 9999], 'replicate', 'post')';
         digit{i, 4} = cov(digit{i, 2}');
