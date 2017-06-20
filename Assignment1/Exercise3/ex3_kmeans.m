@@ -50,17 +50,17 @@ end
 
 figure()
 hold on;
-plot3(Data_Clustered{1}(:,1),Data_Clustered{1}(:,2),Data_Clustered{1}(:,3),'b*')
+plot3(Data_Clustered{1}(:,1),Data_Clustered{1}(:,2),Data_Clustered{1}(:,3),'b.')
 plot3(new_center(1, 1),new_center(1, 2),new_center(1, 3),'b+','MarkerSize',20);
-plot3(Data_Clustered{2}(:,1),Data_Clustered{2}(:,2),Data_Clustered{2}(:,3),'k*')
+plot3(Data_Clustered{2}(:,1),Data_Clustered{2}(:,2),Data_Clustered{2}(:,3),'k.')
 plot3(new_center(2, 1),new_center(2, 2),new_center(2, 3),'k+','MarkerSize',20);
-plot3(Data_Clustered{3}(:,1),Data_Clustered{3}(:,2),Data_Clustered{3}(:,3),'r*')
+plot3(Data_Clustered{3}(:,1),Data_Clustered{3}(:,2),Data_Clustered{3}(:,3),'r.')
 plot3(new_center(3, 1),new_center(3, 2),new_center(3, 3),'r+','MarkerSize',20);
-plot3(Data_Clustered{4}(:,1),Data_Clustered{4}(:,2),Data_Clustered{4}(:,3),'g*')
+plot3(Data_Clustered{4}(:,1),Data_Clustered{4}(:,2),Data_Clustered{4}(:,3),'g.')
 plot3(new_center(4, 1),new_center(4, 2),new_center(4, 3),'g+','MarkerSize',20);
-plot3(Data_Clustered{5}(:,1),Data_Clustered{5}(:,2),Data_Clustered{5}(:,3),'m*')
+plot3(Data_Clustered{5}(:,1),Data_Clustered{5}(:,2),Data_Clustered{5}(:,3),'m.')
 plot3(new_center(5, 1),new_center(5, 2),new_center(5, 3),'m+','MarkerSize',20);
-plot3(Data_Clustered{6}(:,1),Data_Clustered{6}(:,2),Data_Clustered{6}(:,3),'y*')
+plot3(Data_Clustered{6}(:,1),Data_Clustered{6}(:,2),Data_Clustered{6}(:,3),'y.')
 plot3(new_center(6, 1),new_center(6, 2),new_center(6, 3),'y+','MarkerSize',20);
-plot3(Data_Clustered{7}(:,1),Data_Clustered{7}(:,2),Data_Clustered{7}(:,3),'c*')
+plot3(Data_Clustered{7}(:,1),Data_Clustered{7}(:,2),Data_Clustered{7}(:,3),'c.')
 plot3(new_center(7, 1),new_center(7, 2),new_center(7, 3),'c+','MarkerSize',20);

@@ -6,11 +6,11 @@ images_test=loadMNISTImages('t10k-images.idx3-ubyte');
 labels_test=loadMNISTLabels('t10k-labels.idx1-ubyte');
 
 images_zero_mean = images - padarray(mean(images, 2), [0, size(images, 2) - 1], ...
-    'replicate', 'post'); %%%% why sybstract original mean?!!!
+    'replicate', 'post');
 S = cov(images_zero_mean');
 
 images_zero_mean_test = images_test - padarray(mean(images, 2), ...
-    [0, size(images_test, 2) - 1], 'replicate', 'post');
+    [0, size(images_test, 2) - 1], 'replicate', 'post'); %%%%  sybstract original mean?!!!
 
 
 [Eigvector, ~] = eig(S);
@@ -27,11 +27,11 @@ for d = 1:15
     digit = cell(10, 4);
     for i = 1:10
         digit{i, 1} = find(labels == (i - 1));
-        %digit{i, 2} = zeros(784, size(digit{i, 1}, 1));
+        
         digit{i, 2} = images_ld(:, digit{i, 1});
         % labels == (i - 1) can be directe written above
         digit{i, 3} = mean(digit{i, 2}, 2);
-        % pad_mean = padarray(mean(digit{i, 2}, 2), [0, 9999], 'replicate', 'post')';
+        
         digit{i, 4} = cov(digit{i, 2}');
         Likelihood(:, i) = mvnpdf(images_test_ld', digit{i, 3}', digit{i, 4});
     end
