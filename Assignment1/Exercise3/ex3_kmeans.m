@@ -1,8 +1,8 @@
 close all; clear; clc;
 
 load('gesture_dataset.mat');
-Input = gesture_l;
-center = init_cluster_l;
+Input = gesture_x;
+center = init_cluster_x;
 % x=Input(:,:,1),y=Input(:,:,2),z=Input(:,:,3)
 % plot3(x(:),y(:),z(:));
 cluster_number = 7;
