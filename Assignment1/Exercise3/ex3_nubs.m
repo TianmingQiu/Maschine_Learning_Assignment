@@ -3,26 +3,27 @@ close all; clear; clc;
 load('gesture_dataset.mat');
 Input = gesture_x;
 center = init_cluster_x;
-% x=Input(:,:,1),y=Input(:,:,2),z=Input(:,:,3)
-% plot3(x(:),y(:),z(:));
 cluster_number = 7;
+
 sample_idx = 0;
-for m = 1 : size(Input, 1)
+
+%% reorder the original 3D data to 2D:
+for i = 1 : size(Input, 1)
     for j = 1 : size(Input, 2)
         sample_idx = sample_idx + 1;
-        for k = 1 : size(Input, 3)
-            
-            Data(sample_idx, k) = Input(m, j, k);
+        for k = 1 : size(Input, 3)        
+          Data(sample_idx, k) = Input(i, j, k);
         end
-        
-    end
-    
+    end    
 end
 
-y = zeros(7 ,3);
-J = zeros(7,1);
+%% 1st split:
+y = zeros(cluster_number ,3);
+J = zeros(cluster_number, 1);
 y(1, :) = mean(Data, 1);
 k = 1;
+
+%% step2 - step 5:
 Label = zeros(size(Data, 1), 1);
 Cluster = cell(7, 1);
 Cluster{1, 1} = Data;
@@ -52,6 +53,7 @@ while (k < cluster_number)
 end
 new_center = y;
 
+%% plot
 figure()
 hold on;
 plot3(Cluster{1}(:,1),Cluster{1}(:,2),Cluster{1}(:,3),'b.')

@@ -1,26 +1,25 @@
 close all; clear; clc;
-
+%% Intialize
 load('gesture_dataset.mat');
 Input = gesture_x;
 center = init_cluster_x;
-% x=Input(:,:,1),y=Input(:,:,2),z=Input(:,:,3)
-% plot3(x(:),y(:),z(:));
+
 cluster_number = 7;
 threshold = 1e-6;
 sample_idx = 0;
 J = 1;
 
+% reorder the original 3D data to 2D:
 for i = 1 : size(Input, 1)
     for j = 1 : size(Input, 2)
         sample_idx = sample_idx + 1;
-        for k = 1 : size(Input, 3)
-            
-            Data(sample_idx, k) = Input(i, j, k);
+        for k = 1 : size(Input, 3)        
+          Data(sample_idx, k) = Input(i, j, k);
         end
-        
-    end
-    
+    end    
 end
+
+%% K means loop
 decrement = 1;
 while (decrement > threshold)
     J_new = 0;
@@ -39,14 +38,13 @@ while (decrement > threshold)
         J_new = J_new + sum(sum((Data_Clustered{i} - padarray(new_center(i, :), ...
             [size(Data_Clustered{i}, 1) - 1, 0], 'replicate', 'post')) .^ 2));
     end
-    
+    % dcrement rate
     decrement = abs(J_new - J)/J ;
     J = J_new;
     center = new_center;
-    decrement
     
 end
-
+%% Plot
 
 figure()
 hold on;
