@@ -26,23 +26,21 @@ function Exercise3_nubs(motion_data, cluster_number)
     [~, i] = max(J(1 : k));
     Center_a = y(i, :) + [0.08, 0.05, 0.02];
     Center_b = y(i, :) - [0.08, 0.05, 0.02];
-    Label = zeros(size(Cluster{i}, 1), 1);
-    for m = 1 : size(Cluster{i}, 1)
-        distance_a = sum((Cluster{i, 1}(m, :) - Center_a) .^ 2);
-        distance_b = sum((Cluster{i, 1}(m, :) - Center_b) .^ 2);
-        if (distance_a > distance_b)
-            Label(m) = i;
-        else
-            Label(m) = k + 1;
-        end
-    end
+    Label = i * ones(size(Cluster{i}, 1), 1);
+    distance_a = sum((Cluster{i, 1} - ...
+        repmat(Center_a, [size(Cluster{i}, 1), 1])) .^ 2, 2);
+    distance_b = sum((Cluster{i, 1} - ...
+        repmat(Center_b, [size(Cluster{i}, 1), 1])) .^ 2, 2);
+    Label(distance_a > distance_b) = k + 1;
+
     Cluster{k + 1, 1} = Cluster{i, 1}(Label == k + 1, :);
     Cluster{i, 1} = Cluster{i, 1}(Label == i, :);
     y(i, :) = mean(Cluster{i, 1}, 1);
-    J(i) = sum(Cluster{i, 1}(:));
+    J(i) = sum(sum((Cluster{i, 1} - repmat(y(i, :), [size(Cluster{i}, 1), 1])) .^ 2));
 
     y(k + 1, :) = mean(Cluster{k + 1, 1}, 1);
-    J(k + 1) = sum(Cluster{k + 1, 1}(:));
+    J(k + 1) = sum(sum((Cluster{k + 1, 1} - ...
+        repmat(y(k + 1, :), [size(Cluster{k + 1}, 1), 1])) .^ 2));
     k = k + 1;
 
     end
