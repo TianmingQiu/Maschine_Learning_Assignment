@@ -30,11 +30,11 @@ while iteration_flag ~= 0
         % E-Step
         resp(:, k) = response(Data, pi, k, mean, sigma);
         % M-Step
-        n(k) = sum(resp(:, k));
-        mean_est(k, :) = sum(resp(:, k) .* Data) / n(k);
+        n(k) = sum(resp);
+        mean_est(k, :) = sum(resp .* Data) / n(k);
         for i = 1 : sample_number
             sigma_est(:,:,k) = sigma_est(:,:,k) + (Data(i, :) - ...
-                mean_est(k, :))' * (Data(i, :) - mean_est(k, :)) .* resp(i, k);
+                mean_est(k, :))' * (Data(i, :) - mean_est(k, :)) .* resp(i);
         end
         sigma_est(:,:,k) = sigma_est(:,:,k) ./ n(k);
         pi_est(k) = n(k) / sample_number;
@@ -42,19 +42,14 @@ while iteration_flag ~= 0
     
     % update
     mean = mean_est;
-    pi = pi_est;
+    pi = pi-est;
     sigma = sigma_est; 
     % check for convergence through log-likelihood
     for k = 1 : K
-    log_likelihood_est = log_likelihood_est + pi(k) * ...
-        gaussian_pdf(Data, sigma(:, :, k), mean(k, :));
+    log_likelihood = pi(k) * gaussian_pdf()
     end
-    log_likelihood_est = sum(log(log_likelihood_est));
-    if log_likelihood_est == log_likelihood
+    
     iteration_flag = 0;
-    else
-    log_likelihood = log_likelihood_est;
-    end
 end
 
 
