@@ -27,7 +27,7 @@ log_likelihood = 0;
 log_likelihood_est = 0;
 t = 0;
 while iteration_flag ~= 0
-    t = t+1;
+    t = t + 1;
     for k = 1 : K
         % E-Step
         resp(:, k) = response(Data, pi, k, mean, sigma);
@@ -45,34 +45,36 @@ while iteration_flag ~= 0
     % update
     mean = mean_est;
     pi = pi_est;
-    sigma = sigma_est; 
+    sigma = sigma_est;
     % check for convergence through log-likelihood
     for k = 1 : K
-    log_likelihood_est = log_likelihood_est + pi(k) * ...
-        gaussian_pdf(Data, sigma(:, :, k), mean(k, :));
+        log_likelihood_est = log_likelihood_est + pi(k) * ...
+            mvnpdf(Data, mean(k, :), sigma(:, :, k));
     end
     log_likelihood_est = sum(log(log_likelihood_est));
     if log_likelihood_est == log_likelihood
-    iteration_flag = 0;
+        iteration_flag = 0;
     else
-    log_likelihood = log_likelihood_est;
+        log_likelihood = log_likelihood_est;
     end
 end
 
 
 %% Calculation for responsibility and multivariable Gaussian PDF
 function resp = response(x, pi, k, mean, sigma)
-numerator = pi(k) * gaussian_pdf(x, sigma(:,:,k), mean(k, :));
+numerator = pi(k) * mvnpdf(x, mean(k, :), sigma(:,:,k));
 denominator = 0;
 for j = 1 : 4
-    denominator = denominator + pi(j) * gaussian_pdf(x, sigma(:,:,j), mean(j, :));
+    denominator = denominator + pi(j) * mvnpdf(x, mean(j, :), sigma(:,:,j));
 end
 resp = numerator ./ denominator;
 end
 
-function pdf = gaussian_pdf(x, sigma, mean)
-k = size(x, 1);
-pdf = 1 / sqrt((2 * pi) ^ k * det(sigma)) ...
-    * exp(-1 / 2 * ((x - mean) * inv(sigma) * (x - mean)'));
-pdf = diag(pdf);
-end
+% function pdf = gaussian_pdf(x, sigma, mean)
+% k = size(x, 1);
+% pdf = 1 / sqrt((2 * pi) ^ k * det(sigma)) ...
+%     * exp(-1 / 2 * ((x - mean) * inv(sigma) * (x - mean)'));
+% pdf = diag(pdf);
+% 
+% 
+% end
