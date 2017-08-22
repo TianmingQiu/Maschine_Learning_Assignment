@@ -6,7 +6,7 @@ Data = Data';
 [sample_number, dim] = size(Data);
 % number of clusters
 K = 4;
-[idx, mean]=kmeans(Data, K);
+[idx, mean] = kmeans(Data, K);
 
 %% get initial parameter
 pi = zeros(1, K);
@@ -25,7 +25,9 @@ mean_est = zeros(K, dim);
 sigma_est = zeros(dim, dim, K);
 log_likelihood = 0;
 log_likelihood_est = 0;
+t = 0;
 while iteration_flag ~= 0
+    t = t+1;
     for k = 1 : K
         % E-Step
         resp(:, k) = response(Data, pi, k, mean, sigma);
