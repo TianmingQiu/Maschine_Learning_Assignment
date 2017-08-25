@@ -1,3 +1,9 @@
+%-----------------------------------
+% TU Munich 2017 SoSe
+% Maschine Learning in Robtotics
+% Author: Tianming Qiu
+% Matrikel.Nr: 03686061
+%-----------------------------------
 close all; clear; clc;
 load 'A.txt'; load 'B.txt'; load 'pi.txt'; load 'Test.txt';
 B = B';

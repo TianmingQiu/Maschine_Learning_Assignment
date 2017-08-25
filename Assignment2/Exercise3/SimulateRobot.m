@@ -1,5 +1,10 @@
 function [newstate, reward]=SimulateRobot(state, action)
-
+%-----------------------------------
+% TU Munich 2017 SoSe
+% Maschine Learning in Robtotics
+% Author: Tianming Qiu
+% Matrikel.Nr: 03686061
+%-----------------------------------
 rew = [-1, +1, -1, +1;% state 1
     -1, +1, -1, -1; % state 2
     +1, -1, -1, -1; % state 3
