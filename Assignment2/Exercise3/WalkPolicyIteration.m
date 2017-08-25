@@ -1,5 +1,4 @@
 function WalkPolicyIteration(s)
-
 %% Task 1:
 rew = [-1, +1, -1, +1;% state 1
     -1, +1, -1, -1; % state 2
@@ -7,16 +6,16 @@ rew = [-1, +1, -1, +1;% state 1
     -1, -1, +1, -1; % state 4
     -1, -1, -1, +1; % state 5
     +1, -1, +1, -1; % state 6
-    +1, -1, +1, -1; % state 7
+    +1, -1, -1, -1; % state 7
     -1, +1, -1, -1; % state 8
     -1, -1, +1, -1; % state 9
-    +1, -1, +1, -1; % state 10
+    -1, -1, +1, -1; % state 10
     +1, -1, +1, -1; % state 11
-    -1, +1, -1, -1; % state 12 sth. problem
+    -1, +1, -1, -1; % state 12
     +1, -1, -1, -1; % state 13
     -1, -1, -1, +1; % state 14
     -1, -1, -1, +1; % state 15
-    -1, +1, -1, +1;];% state 15
+    -1, +1, -1, +1;];% state 16
 
 %% Task 2: Policy Iteration
 delta=[2 4 5 13; % state 1
@@ -41,8 +40,9 @@ pi = ceil(rand(16, 1) * 4);
 
 
 % iteration
-gamma = 0.9;
+gamma = 0.8;
 iter_flag = 1;
+t = 0;
 while iter_flag
     % step(a)
     A = eye(16);
@@ -65,7 +65,7 @@ while iter_flag
     else
         pi = pi_new;
     end
-    
+    t = t + 1;
 end
 
 %% result
@@ -74,7 +74,25 @@ states(1) = s;
 for i = 1 : 15
     states(i + 1) = delta(states(i), pi(states(i)));
 end
-
 walkshow(states);
-    
 
+%% Test
+% subplot(411)
+% walkshow([1:16])
+%
+% conseqeunce = zeros(1, 16);
+% for i = 1 : 16
+%     conseqeunce(i) = delta(i, pi(i));
+% end
+% subplot(412)
+% walkshow(conseqeunce);
+%
+% subplot(413)
+% groundtruth = [13, 3, 4, 8, 9, 5, 8, 5, 13, 14, 12, 9, 14, 2, 3, 4];
+% walkshow(groundtruth);
+%
+% subplot(414)
+% walkshow(states);
+% conseqeunce == groundtruth
+
+end

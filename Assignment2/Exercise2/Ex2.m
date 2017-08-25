@@ -23,3 +23,5 @@ for s = 1 : Samples
     p(s) = sum(alpha(T, :, s));
 end
 log_likelihood = log(p);
+
+result = 2 - (log_likelihood > -120);

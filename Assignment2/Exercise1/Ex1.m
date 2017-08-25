@@ -1,3 +1,10 @@
+%-----------------------------------
+% TU Munich 2017 SoSe
+% Maschine Learning in Robtotics
+% Author: Tianming Qiu
+% Matrikel.Nr: 03686061
+%-----------------------------------
+
 close all; clear; clc;
 load('dataGMM.mat');
 
@@ -75,6 +82,4 @@ end
 % pdf = 1 / sqrt((2 * pi) ^ k * det(sigma)) ...
 %     * exp(-1 / 2 * ((x - mean) * inv(sigma) * (x - mean)'));
 % pdf = diag(pdf);
-% 
-% 
 % end
